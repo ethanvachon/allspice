@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using allspice.Models;
 using allspice.Repositories;
 
@@ -13,29 +14,42 @@ namespace allspice.Services
       _repo = repo;
     }
 
-    internal object GetAll()
+    internal IEnumerable<Ingredient> GetAll()
     {
       throw new NotImplementedException();
     }
 
-    internal object GetOne(int id)
+    internal Ingredient GetOne(int id)
     {
-      throw new NotImplementedException();
+      Ingredient ingredient = _repo.GetOne(id);
+      if (ingredient == null)
+      {
+        throw new Exception("invalid id");
+      }
+      return ingredient;
     }
 
-    internal object Create(Recipe newRecipe)
+    public IEnumerable<Ingredient> GetIngredientsByRecipeId(int id)
     {
-      throw new NotImplementedException();
+      IEnumerable<Ingredient> ingredients = _repo.GetIngredientsByRecipeId(id);
+      return ingredients;
+    }
+
+
+    internal Ingredient Create(Ingredient newIngredient)
+    {
+      return _repo.Create(newIngredient);
     }
 
     internal object Edit(Ingredient editIngredient)
     {
-      throw new NotImplementedException();
+      return _repo.Edit(editIngredient);
     }
 
-    internal void Delete(int id)
+    internal string Delete(int id)
     {
-      throw new NotImplementedException();
+      _repo.Delete(id);
+      return ("deleted");
     }
   }
 }

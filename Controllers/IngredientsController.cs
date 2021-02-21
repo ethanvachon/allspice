@@ -43,11 +43,11 @@ namespace allspice.Controllers
 
     }
     [HttpPost]
-    public ActionResult<Recipe> Create([FromBody] Recipe newRecipe)
+    public ActionResult<Ingredient> Create([FromBody] Ingredient newIngredient)
     {
       try
       {
-        return Ok(_service.Create(newRecipe));
+        return Ok(_service.Create(newIngredient));
       }
       catch (System.Exception e)
       {
