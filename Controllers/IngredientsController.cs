@@ -54,5 +54,33 @@ namespace allspice.Controllers
         return BadRequest(e.Message);
       }
     }
+
+    [HttpPut("{id}")]
+    public ActionResult<Ingredient> Edit([FromBody] Ingredient editIngredient, int id)
+    {
+      try
+      {
+        editIngredient.Id = id;
+        return Ok(_service.Edit(editIngredient));
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult<string> Delete(int id)
+    {
+      try
+      {
+        _service.Delete(id);
+        return Ok("deleted");
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
   }
 }
