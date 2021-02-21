@@ -58,14 +58,22 @@ namespace allspice.Repositories
       return newIngredient;
     }
 
-    internal object Edit(Ingredient editIngredient)
+    internal Ingredient Edit(Ingredient editIngredient)
     {
-      throw new NotImplementedException();
+      string sql = @"
+      UPDATE ingredients
+      SET
+        quantity = @Quantity,
+        name = @Name
+      WHERE id = @Id;
+      SELECT * FROM ingredients WHERE id = @Id";
+      return _db.QueryFirstOrDefault<Ingredient>(sql, editIngredient);
     }
 
     internal void Delete(int id)
     {
-      throw new NotImplementedException();
+      string sql = "DELETE FROM ingredients WHERE id = @id;";
+      _db.Execute(sql, new { id });
     }
   }
 }
